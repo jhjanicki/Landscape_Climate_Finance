@@ -1,4 +1,4 @@
-const main = d3.select("body");
+    const main = d3.select("body");
     const scrolly = d3.selectAll(".scroller");
     const figure = d3.selectAll(".chart");
     const article = d3.selectAll(".scroll-graphic");
@@ -14,7 +14,7 @@ const main = d3.select("body");
 
 
     const margin = {
-        "top": 20,
+        "top": 30,
         "left": 50,
         "bottom": 50,
         "right": 30
@@ -53,7 +53,7 @@ const main = d3.select("body");
     }
 
     let xAxis = d3.axisBottom(xScale).tickFormat(formatYear);
-    let yAxis = d3.axisLeft(yScale);
+    let yAxis = d3.axisLeft(yScale).ticks(5);
 
 
     const g = svg.append("g").attr("transform",`translate(${margin.left},${margin.top})`);
@@ -105,6 +105,14 @@ const main = d3.select("body");
         .attr("text-anchor",(d,i)=>(i==0)?"start":"middle")
         .text(d=>d.value)
 
+    g.append("text")
+        .attr("class","unit")
+        .attr("x",-42)
+        .attr("y",-12)
+        .attr("font-weight",400)
+        .attr("font-size",12)
+        .text("$USD bn");
+
 
 
     // scrollama event handlers
@@ -117,7 +125,7 @@ const main = d3.select("body");
             yScale.domain([0, 700]);
             svg.select(".y-axis")
                 .transition().duration(1000)
-                .call(d3.axisLeft(yScale));
+                .call(d3.axisLeft(yScale).ticks(5));
 
             svg.select(".area")
                 .transition().duration(1000)
@@ -147,7 +155,7 @@ const main = d3.select("body");
                 yScale.domain([0, 7000]);
                 svg.select(".y-axis")
                     .transition().duration(1000)
-                    .call(d3.axisLeft(yScale));
+                    .call(d3.axisLeft(yScale).ticks(5));
 
                 svg.select(".area")
                     .transition().duration(1000)
@@ -299,7 +307,7 @@ const main = d3.select("body");
             .setup({
                 step: ".scene",
                 offset: 0.9,
-                debug: true,
+                debug: false,
                 progress: false
             })
             .onStepEnter(handleStepEnter);
