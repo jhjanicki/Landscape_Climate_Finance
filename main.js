@@ -14,9 +14,9 @@
 
 
     const margin = {
-        "top": 30,
-        "left": 50,
-        "bottom": 50,
+        "top": 35,
+        "left": 55,
+        "bottom": 65,
         "right": 30
     }
 
@@ -84,7 +84,7 @@
       .data(data)
       .join("circle")
       .attr("class","circles")
-        .attr("fill", "black")
+        .attr("fill", "#0D4064")
         .attr("stroke", "white")
         .attr("stroke-width", 1)
         .attr("cx", function(d) { return xScale(d.year) })
@@ -126,6 +126,11 @@
             svg.select(".y-axis")
                 .transition().duration(1000)
                 .call(d3.axisLeft(yScale).ticks(5));
+            
+            xScale.domain([2012, 2020]);
+            svg.select(".x-axis")
+                .transition().duration(1000)
+                .call(d3.axisBottom(xScale).tickFormat(formatYear));
 
             svg.select(".area")
                 .transition().duration(1000)
@@ -142,6 +147,7 @@
 
             svg.selectAll("text.values")
                 .transition().duration(1000)
+                .attr("font-size",16)
                 .attr("x", function(d) { return xScale(d.year) })
                 .attr("y", function(d) { return yScale(d.value) })
 
@@ -152,88 +158,13 @@
 
             if( response.direction=="down"){
 
-                yScale.domain([0, 7000]);
+                yScale.domain([0, 6000]);
                 svg.select(".y-axis")
                     .transition().duration(1000)
                     .call(d3.axisLeft(yScale).ticks(5));
-
-                svg.select(".area")
-                    .transition().duration(1000)
-                    .attr("d", d3.area()
-                        .x(function(d) { return xScale(d.year) })
-                        .y0( height- margin.bottom)
-                        .y1(function(d) { return yScale(d.value) })
-                    )
-
-                svg.selectAll("circle.circles")
-                    .transition().duration(1000)
-                    .attr("cx", function(d) { return xScale(d.year) })
-                    .attr("cy", function(d) { return yScale(d.value) })
-
-                svg.selectAll("text.values")
-                    .transition().duration(1000)
-                    .attr("x", function(d) { return xScale(d.year) })
-                    .attr("y", function(d) { return yScale(d.value) })
-
-            }
-
-              
-            if( response.direction=="up"){
-
-                xScale.domain([2012, 2020]);
-                svg.select(".x-axis")
-                    .transition().duration(1000)
-                    .call(d3.axisBottom(xScale).tickFormat(formatYear));
-
-                svg.select(".area")
-                    .transition().duration(1000)
-                    .attr("d", d3.area()
-                        .x(function(d) { return xScale(d.year) })
-                        .y0( height- margin.bottom)
-                        .y1(function(d) { return yScale(d.value) })
-                    )
-
-                svg.selectAll("circle.circles")
-                    .transition().duration(1000)
-                    .attr("cx", function(d) { return xScale(d.year) })
-                    .attr("cy", function(d) { return yScale(d.value) })
-
-                svg.selectAll("text.values")
-                    .transition().duration(1000)
-                    .attr("x", function(d) { return xScale(d.year) })
-                    .attr("y", function(d) { return yScale(d.value) })
-
-            }
-         
-        }
-
-        if(response.index==2){
-
-            if( response.direction=="up"){
-
-                svg.selectAll(".area2")
-                    .attr("d", d3.area()
-                        .x(function(d) { return xScale(d.year) })
-                        .y0( height- margin.bottom)
-                        .y1(function(d) { return yScale(d.value)})
-                        ).transition().duration(1000)
-                        .attr("d", d3.area()
-                        .x(function(d) { return xScale(d.year) })
-                        .y0( height- margin.bottom)
-                        .y1(height- margin.bottom)
-                    ).remove();
-
-                svg.selectAll(".line")
-                    .attr("y2",yScale(3136))
-                    .transition().duration(1000)
-                    .attr("y2",yScale(632))
-                    .remove();
-
-            }
-
-            if( response.direction=="down"){
+                
                 xScale.domain([2012, 2050]);
-                    svg.select(".x-axis")
+                svg.select(".x-axis")
                     .transition().duration(1000)
                     .call(d3.axisBottom(xScale).tickFormat(formatYear2));
 
@@ -251,33 +182,69 @@
                     .attr("cy", function(d) { return yScale(d.value) })
 
                 svg.selectAll("text.values")
+                    .attr("font-size",12)
                     .transition().duration(1000)
                     .attr("x", function(d) { return xScale(d.year) })
                     .attr("y", function(d) { return yScale(d.value) })
+
             }
+
+              
+            if( response.direction=="up"){
+
+                svg.selectAll(".line2")
+                    .attr("d", d3.line()
+                        .x(function(d) { return xScale(d.year) })
+                        .y(function(d) { return yScale(d.value) })
+                      ).transition().duration(1000)
+                    .attr("d", d3.line()
+                       .x(xScale(2021))
+                       .y(yScale(632))
+                    ).remove();
+                
+                    // .attr("d", d3.area()
+                    //     .x(function(d) { return xScale(d.year) })
+                    //     .y0( height- margin.bottom)
+                    //     .y1(function(d) { return yScale(d.value)})
+                    //     ).transition().duration(1000)
+                    //     .attr("d", d3.area()
+                    //     .x(function(d) { return xScale(d.year) })
+                    //     .y0( height- margin.bottom)
+                    //     .y1(height- margin.bottom)
+                    // ).remove();
+
+                svg.selectAll(".line")
+                    .attr("y2",yScale(3136))
+                    .transition().duration(1000)
+                    .attr("y2",yScale(632))
+                    .remove();
+
+            }
+         
         }
 
-        if(response.index==3){
+        
+        if(response.index==2){
 
             if( response.direction=="down"){
 
                 // Add the second area
-                g.append("path")
-                    .datum(data2)
-                    .attr("class","area2")
-                    .attr("fill", "#266FA5")
-                    .attr("fill-opacity", 0.5)
-                    .attr("stroke", "none")
-                    .attr("d", d3.area()
-                        .x(function(d) { return xScale(d.year) })
-                        .y0( height- margin.bottom)
-                        .y1(height- margin.bottom)
-                        ).transition().duration(1000)
-                        .attr("d", d3.area()
-                        .x(function(d) { return xScale(d.year) })
-                        .y0( height- margin.bottom)
-                        .y1(function(d) { return yScale(d.value) })
-                    );
+                // g.append("path")
+                //     .datum(data2)
+                //     .attr("class","area2")
+                //     .attr("fill", "#266FA5")
+                //     .attr("fill-opacity", 0.5)
+                //     .attr("stroke", "none")
+                //     .attr("d", d3.area()
+                //         .x(function(d) { return xScale(d.year) })
+                //         .y0( height- margin.bottom)
+                //         .y1(height- margin.bottom)
+                //         ).transition().duration(1000)
+                //         .attr("d", d3.area()
+                //         .x(function(d) { return xScale(d.year) })
+                //         .y0( height- margin.bottom)
+                //         .y1(function(d) { return yScale(d.value) })
+                //     );
 
                 g.append("line")
                     .attr("class","line")
@@ -290,6 +257,21 @@
                     .attr("stroke","#266FA5")
                     .attr("stroke-width",3)
                     .attr("stroke-dasharray",5)
+
+                g.append("path")
+                    .datum(data2)
+                    .attr("class","line2")
+                    .attr("fill", "none")
+                    .attr("stroke", "#266FA5")
+                    .attr("stroke-width", 3)
+                    .attr("d", d3.line()
+                      .x(xScale(2021))
+                      .y(height- margin.bottom)
+                      ).transition().duration(1000)
+                    .attr("d", d3.line()
+                      .x(function(d) { return xScale(d.year) })
+                      .y(function(d) { return yScale(d.value) })
+                      )
 
             }
 

@@ -32,9 +32,9 @@ section.section-1 h1 {
 	left: 0;
 	right: 0;
 	text-align: center;
-	font-size: 46px;
+	font-size: 36px;
 	font-weight: 600;
-	padding-top: 0px;
+	padding-top: 20px;
 }
 
 section.section-1 h3 {
@@ -46,6 +46,7 @@ section.section-1 h3 {
 }
 
 .title {
+	font-family: 'Georgia';
 	position: relative;
 	max-width: 60%;
 	margin-left: auto;
@@ -68,7 +69,7 @@ section.section-1 h3 {
 }
 
 .article-wrapper p {
-	margin-top: 40px;
+	font-family: 'Georgia';
 	padding: 0;
 	font-size: 20px;
 	line-height: 28px;
@@ -147,6 +148,11 @@ body {
 
 .tick line {
 	opacity: 0;
+}
+
+.tick text{
+	font-size: 11.5px;
+	font-family: 'Whitney';
 }
 
 .x-axis,
