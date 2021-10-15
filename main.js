@@ -32,7 +32,7 @@
         .attr("opacity",0.3)
 
     
-    const data = [{"year":2012,"value":364},{"year":2014,"value":365},{"year":2016,"value":463},{"year":2018,"value":547},{"year":2020,"value":632}];
+    const data = [{"year":2012,"value":364},{"year":2014,"value":365},{"year":2016,"value":463},{"year":2018,"value":574},{"year":2020,"value":632}];
     const data2=[{"year":2021,"value":3136},{"year":2022,"value":3196},{"year":2023,"value":3247},{"year":2024,"value":3321},{"year":2025,"value":3416},{"year":2026,"value":3624},{"year":2027,"value":3730},{"year":2028,"value":3851},{"year":2029,"value":3982},{"year":2030,"value":4134},{"year":2031,"value":4735},{"year":2032,"value":4967},{"year":2033,"value":5094},{"year":2034,"value":5210},{"year":2035,"value":5311},{"year":2036,"value":5411},{"year":2037,"value":5529},{"year":2038,"value":5631},{"year":2039,"value":5735},{"year":2040,"value":5842},{"year":2041,"value":5848},{"year":2042,"value":5852},{"year":2043,"value":5856},{"year":2044,"value":5861},{"year":2045,"value":5865},{"year":2046,"value":5869},{"year":2047,"value":5874},{"year":2048,"value":5878},{"year":2049,"value":5882},{"year":2050,"value":5887}];
 
 
