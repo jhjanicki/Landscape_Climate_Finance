@@ -127,10 +127,6 @@
                 .transition().duration(1000)
                 .call(d3.axisLeft(yScale).ticks(5));
             
-            xScale.domain([2012, 2020]);
-            svg.select(".x-axis")
-                .transition().duration(1000)
-                .call(d3.axisBottom(xScale).tickFormat(formatYear));
 
             svg.select(".area")
                 .transition().duration(1000)
@@ -163,10 +159,6 @@
                     .transition().duration(1000)
                     .call(d3.axisLeft(yScale).ticks(5));
                 
-                xScale.domain([2012, 2050]);
-                svg.select(".x-axis")
-                    .transition().duration(1000)
-                    .call(d3.axisBottom(xScale).tickFormat(formatYear2));
 
                 svg.select(".area")
                     .transition().duration(1000)
@@ -192,32 +184,30 @@
               
             if( response.direction=="up"){
 
-                svg.selectAll(".line2")
-                    .attr("d", d3.line()
-                        .x(function(d) { return xScale(d.year) })
-                        .y(function(d) { return yScale(d.value) })
-                      ).transition().duration(1000)
-                    .attr("d", d3.line()
-                       .x(xScale(2021))
-                       .y(yScale(632))
-                    ).remove();
-                
-                    // .attr("d", d3.area()
-                    //     .x(function(d) { return xScale(d.year) })
-                    //     .y0( height- margin.bottom)
-                    //     .y1(function(d) { return yScale(d.value)})
-                    //     ).transition().duration(1000)
-                    //     .attr("d", d3.area()
-                    //     .x(function(d) { return xScale(d.year) })
-                    //     .y0( height- margin.bottom)
-                    //     .y1(height- margin.bottom)
-                    // ).remove();
-
-                svg.selectAll(".line")
-                    .attr("y2",yScale(3136))
+                xScale.domain([2012, 2020]);
+                svg.select(".x-axis")
                     .transition().duration(1000)
-                    .attr("y2",yScale(632))
-                    .remove();
+                    .call(d3.axisBottom(xScale).tickFormat(formatYear));
+
+                svg.select(".area")
+                .transition().duration(1000)
+                .attr("d", d3.area()
+                    .x(function(d) { return xScale(d.year) })
+                    .y0( height- margin.bottom)
+                    .y1(function(d) { return yScale(d.value) })
+                )
+
+                svg.selectAll("circle.circles")
+                    .transition().duration(1000)
+                    .attr("cx", function(d) { return xScale(d.year) })
+                    .attr("cy", function(d) { return yScale(d.value) })
+
+                svg.selectAll("text.values")
+                    .transition().duration(1000)
+                    .attr("font-size",16)
+                    .attr("x", function(d) { return xScale(d.year) })
+                    .attr("y", function(d) { return yScale(d.value) })
+
 
             }
          
@@ -228,25 +218,62 @@
 
             if( response.direction=="down"){
 
-                // Add the second area
-                // g.append("path")
-                //     .datum(data2)
-                //     .attr("class","area2")
-                //     .attr("fill", "#266FA5")
-                //     .attr("fill-opacity", 0.5)
-                //     .attr("stroke", "none")
-                //     .attr("d", d3.area()
-                //         .x(function(d) { return xScale(d.year) })
-                //         .y0( height- margin.bottom)
-                //         .y1(height- margin.bottom)
-                //         ).transition().duration(1000)
-                //         .attr("d", d3.area()
-                //         .x(function(d) { return xScale(d.year) })
-                //         .y0( height- margin.bottom)
-                //         .y1(function(d) { return yScale(d.value) })
-                //     );
+                xScale.domain([2012, 2050]);
+                svg.select(".x-axis")
+                    .transition().duration(1000)
+                    .call(d3.axisBottom(xScale).tickFormat(formatYear2));
+                
 
-                g.append("line")
+                svg.select(".area")
+                    .transition().duration(1000)
+                    .attr("d", d3.area()
+                        .x(function(d) { return xScale(d.year) })
+                        .y0( height- margin.bottom)
+                        .y1(function(d) { return yScale(d.value) })
+                    )
+
+                svg.selectAll("circle.circles")
+                    .transition().duration(1000)
+                    .attr("cx", function(d) { return xScale(d.year) })
+                    .attr("cy", function(d) { return yScale(d.value) })
+
+                svg.selectAll("text.values")
+                    .attr("font-size",12)
+                    .transition().duration(1000)
+                    .attr("x", function(d) { return xScale(d.year) })
+                    .attr("y", function(d) { return yScale(d.value) })
+
+                
+
+            }
+
+            if(response.direction=="up"){
+                svg.selectAll(".line2")
+                .attr("d", d3.line()
+                    .x(function(d) { return xScale(d.year) })
+                    .y(function(d) { return yScale(d.value) })
+                  ).transition().duration(1000)
+                .attr("d", d3.line()
+                   .x(xScale(2021))
+                   .y(yScale(632))
+                ).remove();
+            
+
+
+            svg.selectAll(".line")
+                .attr("y2",yScale(3136))
+                .transition().duration(1000)
+                .attr("y2",yScale(632))
+                .remove();
+            }
+
+        }
+
+        if(response.index==3){
+
+            if( response.direction=="down"){
+
+            g.append("line")
                     .attr("class","line")
                     .attr("x1", xScale(2020))
                     .attr("x2",xScale(2021))
