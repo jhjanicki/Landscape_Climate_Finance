@@ -88,8 +88,12 @@ body {
 }
 
 .scroller {
-	position: relative;
-	margin-bottom: 50px
+	/* position: relative;
+	margin-bottom: 50px; */
+
+	display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: flex-start;
 }
 
 .scroll-graphic {
@@ -97,17 +101,26 @@ body {
 	position: sticky;
 	height: 100vh;
 	top: 0;
+
 	padding-top: 150px;
+	grid-column: 1;
 }
 
 
-/* 
+/*
   .scroll-graphic .chart-wrapper .chart {
   	height: 85vh
   } */
 
 .scroll-scenes {
-	pointer-events: none
+	pointer-events: none;
+
+    grid-row: 1;
+    grid-column: 2;
+    background-color: #F8F6F1;
+    border-left: 1px solid #212e36;
+    align-items: center;
+    justify-content: center;
 }
 
 .scene {
@@ -127,8 +140,9 @@ body {
 }
 
 .article-wrapper.scroller-text {
+	margin-top: 50vh;
 	max-width: 450px;
-	margin: auto;
+	/* margin: auto; */
 	padding: 5px 20px;
 	background-color: hsla(0, 0%, 100%, .65);
 	box-shadow: 1px 1px 5px -3px rgba(0, 0, 0, .5);
