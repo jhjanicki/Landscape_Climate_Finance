@@ -31,7 +31,7 @@
         .attr("fill","#E7E6E6")
         .attr("opacity",0.3)
 
-    
+
     const data = [{"year":2012,"value":364},{"year":2014,"value":365},{"year":2016,"value":463},{"year":2018,"value":574},{"year":2020,"value":632}];
     const data2=[{"year":2021,"value":3136},{"year":2022,"value":3196},{"year":2023,"value":3247},{"year":2024,"value":3321},{"year":2025,"value":3416},{"year":2026,"value":3624},{"year":2027,"value":3730},{"year":2028,"value":3851},{"year":2029,"value":3982},{"year":2030,"value":4134},{"year":2031,"value":4735},{"year":2032,"value":4967},{"year":2033,"value":5094},{"year":2034,"value":5210},{"year":2035,"value":5311},{"year":2036,"value":5411},{"year":2037,"value":5529},{"year":2038,"value":5631},{"year":2039,"value":5735},{"year":2040,"value":5842},{"year":2041,"value":5848},{"year":2042,"value":5852},{"year":2043,"value":5856},{"year":2044,"value":5861},{"year":2045,"value":5865},{"year":2046,"value":5869},{"year":2047,"value":5874},{"year":2048,"value":5878},{"year":2049,"value":5882},{"year":2050,"value":5887}];
 
@@ -43,13 +43,13 @@
     let yScale = d3.scaleLinear()
         .domain([0, 700])
         .range([height-margin.bottom, 0]);
-    
+
     const formatYear = function(d) {
-        return d%2==0?((d-1).toString()+"/"+d.toString()):"";     
+        return d%2==0?((d-1).toString()+"/"+d.toString()):"";
     }
 
     const formatYear2 = function(d) {
-        return d;     
+        return d;
     }
 
     let xAxis = d3.axisBottom(xScale).tickFormat(formatYear);
@@ -61,7 +61,7 @@
     g.append("g")
         .attr("class", "y-axis")
         .call(yAxis);
-    
+
     g.append("g")
         .attr("class", "x-axis")
         .attr("transform",`translate(0,${height-margin.bottom})`)
@@ -91,7 +91,7 @@
         .attr("cy", function(d) { return yScale(d.value) })
         .attr("r", 5)
 
-    
+
     g.selectAll("text.values")
       .data(data)
       .join("text")
@@ -114,6 +114,16 @@
         .text("$USD bn");
 
 
+    const svg2 = d3.select("#chart2").append("svg").attr("width", width).attr("height", height);
+    const sankey = svg2.append("svg:image")
+        .attr("class","sankey")
+        .attr('x', 0)
+        .attr('y', 0)
+        .attr('width', width)
+        .attr('height', height)
+        .attr("xlink:href", "./img/sankey1.png");
+
+
 
     // scrollama event handlers
     function handleStepEnter(response) {
@@ -126,7 +136,7 @@
             svg.select(".y-axis")
                 .transition().duration(1000)
                 .call(d3.axisLeft(yScale).ticks(5));
-            
+
 
             svg.select(".area")
                 .transition().duration(1000)
@@ -158,7 +168,7 @@
                 svg.select(".y-axis")
                     .transition().duration(1000)
                     .call(d3.axisLeft(yScale).ticks(5));
-                
+
 
                 svg.select(".area")
                     .transition().duration(1000)
@@ -181,7 +191,7 @@
 
             }
 
-              
+
             if( response.direction=="up"){
 
                 xScale.domain([2012, 2020]);
@@ -210,10 +220,10 @@
 
 
             }
-         
+
         }
 
-        
+
         if(response.index==2){
 
             if( response.direction=="down"){
@@ -222,7 +232,7 @@
                 svg.select(".x-axis")
                     .transition().duration(1000)
                     .call(d3.axisBottom(xScale).tickFormat(formatYear2));
-                
+
 
                 svg.select(".area")
                     .transition().duration(1000)
@@ -243,7 +253,7 @@
                     .attr("x", function(d) { return xScale(d.year) })
                     .attr("y", function(d) { return yScale(d.value) })
 
-                
+
 
             }
 
@@ -257,7 +267,7 @@
                    .x(xScale(2021))
                    .y(yScale(632))
                 ).remove();
-            
+
 
 
             svg.selectAll(".line")
@@ -270,6 +280,8 @@
         }
 
         if(response.index==3){
+
+            $(".article-wrapper.scroller-text").css("margin","auto")
 
             if( response.direction=="down"){
 
@@ -301,6 +313,21 @@
                       )
 
             }
+
+        }
+
+        if(response.index == 5){
+            $(".article-wrapper.scroller-text").css("margin-left","50%")
+
+        }
+
+        if(response.index==6){
+
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/sankey2.png")
+            // .attr("opacity",0)
+            // .transition().duration(500)
+            // .attr("opacity",1);
 
         }
 
