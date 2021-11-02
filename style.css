@@ -126,6 +126,15 @@ body {
 	width: 100%
 }
 
+.chart-wrapper2 {
+	max-width: 1200px;
+	margin: 50px auto;
+}
+
+.chart-wrapper2 .chart2 {
+	height: 600px;
+	width: 100%
+}
 
 .article-wrapper.scroller-text {
 	max-width: 450px;

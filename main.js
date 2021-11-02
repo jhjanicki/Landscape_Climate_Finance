@@ -1,6 +1,7 @@
     const main = d3.select("body");
     const scrolly = d3.selectAll(".scroller");
     const figure = d3.selectAll(".chart");
+    const figure2 = d3.selectAll(".chart2");
     const article = d3.selectAll(".scroll-graphic");
     const step = d3.selectAll(".scene");
 
@@ -11,6 +12,9 @@
     // console.log(figure.node().getBoundingClientRect())
     let width = figure.node().getBoundingClientRect().width;
     let height = figure.node().getBoundingClientRect().height;
+
+    let width2 = figure2.node().getBoundingClientRect().width;
+    let height2 = figure2.node().getBoundingClientRect().height;
 
 
     const margin = {
@@ -114,14 +118,14 @@
         .text("$USD bn");
 
 
-    const svg2 = d3.select("#chart2").append("svg").attr("width", width).attr("height", height);
+    const svg2 = d3.select("#chart2").append("svg").attr("width", width2).attr("height", height2);
     const sankey = svg2.append("svg:image")
         .attr("class","sankey")
         .attr('x', 0)
         .attr('y', 0)
-        .attr('width', width)
-        .attr('height', height)
-        .attr("xlink:href", "./img/sankey1.png");
+        .attr('width', width2)
+        .attr('height', height2)
+        .attr("xlink:href", "./img/1-Sources.png");
 
 
 
@@ -317,18 +321,95 @@
         }
 
         if(response.index == 5){
+            $(".article-wrapper.scroller-text").css("margin","auto")
             $(".article-wrapper.scroller-text").css("margin-left","50%")
-
         }
 
         if(response.index==6){
-
             svg2.select(".sankey")
-            .attr("xlink:href", "./img/sankey2.png")
-            // .attr("opacity",0)
-            // .transition().duration(500)
-            // .attr("opacity",1);
+            .attr("xlink:href", "./img/1a-Public-01.png");
+        }
 
+        if(response.index==7){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/1b-Private-01.png");
+        }
+
+        if(response.index==8){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/2-Instruments-01.png");
+        }
+
+        if(response.index==9){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/2a-Grants-01.png");
+        }
+
+        if(response.index==10){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/2b-Debt-01.png");
+        }
+
+        if(response.index==11){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/2c-Equity-01.png");
+        }
+
+        if(response.index==12){
+            $(".article-wrapper.scroller-text").css("margin","auto");
+            $(".article-wrapper.scroller-text").css("margin-right","50%");
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/3-Uses-01.png");
+        }
+
+        if(response.index==13){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/3a-Uses-Adaptation-01.png");
+        }
+
+        if(response.index==14){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/3b-Uses-Multiple-Objectives-01.png");
+        }
+
+        if(response.index==15){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/4-Sectors-01.png");
+        }
+
+        if(response.index==16){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/4a-Water-Waste-01.png");
+        }
+
+        if(response.index==17){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/4b-Infra-Industry-01.png");
+        }
+
+        if(response.index==18){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/4c-Others-01.png");
+        }
+
+        if(response.index==19){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/4d-Land-Use-01.png");
+        }
+
+        if(response.index==20){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/4e-Transport-01.png");
+        }
+
+        if(response.index==21){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/3c-Uses-Mitigation-01.png");
+        }
+
+        if(response.index==22){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/4f-Energy-Systems-01.png");
         }
 
     }
