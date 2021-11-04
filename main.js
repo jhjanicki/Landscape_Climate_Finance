@@ -9,6 +9,9 @@
     const scroller = scrollama();
 
 
+    window.onresize = function(){ location.reload(); }
+
+
     // console.log(figure.node().getBoundingClientRect())
     let width = figure.node().getBoundingClientRect().width;
     let height = figure.node().getBoundingClientRect().height;
@@ -320,56 +323,66 @@
 
         }
 
-        if(response.index == 5){
+        if(response.index == 4){
             $(".article-wrapper.scroller-text").css("margin","auto")
             $(".article-wrapper.scroller-text").css("margin-left","50%")
         }
 
-        if(response.index==6){
+        if(response.index==5){
             svg2.select(".sankey")
             .attr("xlink:href", "./img/1a-Public-01.png");
         }
 
-        if(response.index==7){
+        if(response.index==6){
             svg2.select(".sankey")
             .attr("xlink:href", "./img/1b-Private-01.png");
         }
 
-        if(response.index==8){
+        if(response.index==7){
             svg2.select(".sankey")
             .attr("xlink:href", "./img/2-Instruments-01.png");
         }
 
-        if(response.index==9){
+        if(response.index==8){
             svg2.select(".sankey")
             .attr("xlink:href", "./img/2a-Grants-01.png");
         }
 
-        if(response.index==10){
+        if(response.index==9){
             svg2.select(".sankey")
             .attr("xlink:href", "./img/2b-Debt-01.png");
         }
 
-        if(response.index==11){
+        if(response.index==10){
             svg2.select(".sankey")
             .attr("xlink:href", "./img/2c-Equity-01.png");
+            $(".article-wrapper.scroller-text").css("margin","auto");
+            $(".article-wrapper.scroller-text").css("margin-left","50%");
         }
 
-        if(response.index==12){
+        if(response.index==11){
+
+
             $(".article-wrapper.scroller-text").css("margin","auto");
             $(".article-wrapper.scroller-text").css("margin-right","50%");
+
             svg2.select(".sankey")
             .attr("xlink:href", "./img/3-Uses-01.png");
         }
 
-        if(response.index==13){
+        if(response.index==12){
             svg2.select(".sankey")
             .attr("xlink:href", "./img/3a-Uses-Adaptation-01.png");
         }
 
-        if(response.index==14){
+        if(response.index==13){
             svg2.select(".sankey")
             .attr("xlink:href", "./img/3b-Uses-Multiple-Objectives-01.png");
+        }
+
+        if(response.index==14){
+            svg2.select(".sankey")
+            .attr("xlink:href", "./img/3c-Uses-Mitigation-01.png");
         }
 
         if(response.index==15){
@@ -404,26 +417,19 @@
 
         if(response.index==21){
             svg2.select(".sankey")
-            .attr("xlink:href", "./img/3c-Uses-Mitigation-01.png");
-        }
-
-        if(response.index==22){
-            svg2.select(".sankey")
             .attr("xlink:href", "./img/4f-Energy-Systems-01.png");
         }
 
     }
 
 
-    function handleStepExit(response) {
-    }
-
     function init() {
 
         scroller
             .setup({
                 step: ".scene",
-                offset: 0.9,
+                offset: 1,
+                offsetTrigger:1,
                 debug: false,
                 progress: false
             })
