@@ -24,6 +24,7 @@
 body {
 	font-family: 'Whitney';
 	-webkit-font-smoothing: antialiased;
+	overflow:hidden;
 }
 
 
@@ -226,5 +227,39 @@ body {
 	}
 
 }
+
+#loading {
+	top: 0;
+	left: 0;
+	position: fixed;
+	display: block;
+	opacity: .3;
+	background-color:gray;
+	z-index: 99;
+  }
+
+  #loadWrapper{
+	top: 0;
+	left: 0;
+	position: fixed;
+	display: block;
+	background-color: none;
+	z-index: 99;
+
+  }
+
+  #loading-image {
+	position: relative;
+	margin-left: calc(50vw - 80px);
+	margin-top: calc(50vh - 80px);
+	z-index: 100;
+	opacity: 1;
+  }
+
+  #loading {
+	width: 100%;
+	text-align: center;
+	height: 100%;
+  }
 
 

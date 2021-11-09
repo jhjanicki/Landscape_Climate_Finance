@@ -1,177 +1,171 @@
-    const main = d3.select("body");
-    const scrolly = d3.selectAll(".scroller");
-    const figure = d3.selectAll(".chart");
-    const figure2 = d3.selectAll(".chart2");
-    const article = d3.selectAll(".scroll-graphic");
-    const step = d3.selectAll(".scene");
-
-    // initialize the scrollama
-    const scroller = scrollama();
 
 
-    window.onresize = function(){ location.reload(); }
+$( document ).ready(function() {
+    init();
+});
 
 
-    // console.log(figure.node().getBoundingClientRect())
-    let width = figure.node().getBoundingClientRect().width;
-    let height = figure.node().getBoundingClientRect().height;
+    function init() {
+        //preload images
+        preload([
+          './img/1-Sources.png',
+          './img/1a-Public-01.png',
+          './img/1b-Private-01.png',
+          './img/2-Instruments-01.png',
+          './img/2a-Grants-01.png',
+          './img/2b-Debt-01.png',
+          './img/2c-Equity-01.png',
+          './img/3-Uses-01.png',
+          './img/3a-Uses-Adaptation-01.png',
+          './img/3b-Uses-Multiple-Objectives-01.png',
+          './img/3c-Uses-Mitigation-01.png',
+          './img/4-Sectors-01.png',
+          './img/4a-Water-Waste-01.png',
+          './img/4b-Infra-Industry-01.png',
+          './img/4c-Others-01.png',
+          './img/4d-Land-Use-01.png',
+          './img/4e-Transport-01.png',
+          './img/4f-Energy-Systems-01.png'
+        ]);
 
-    let width2 = figure2.node().getBoundingClientRect().width;
-    let height2 = figure2.node().getBoundingClientRect().height;
+        const main = d3.select("body");
+        const scrolly = d3.selectAll(".scroller");
+        const figure = d3.selectAll(".chart");
+        const figure2 = d3.selectAll(".chart2");
+        const article = d3.selectAll(".scroll-graphic");
+        const step = d3.selectAll(".scene");
 
+        // initialize the scrollama
+        const scroller = scrollama();
 
-    const margin = {
-        "top": 35,
-        "left": 55,
-        "bottom": 65,
-        "right": 30
-    }
+        // console.log(figure.node().getBoundingClientRect())
+        let width = figure.node().getBoundingClientRect().width;
+        let height = figure.node().getBoundingClientRect().height;
 
-
-    //svg
-    const svg = d3.select("#chart1").append("svg").attr("width", width).attr("height", height);
-    const bg = svg.append('rect')
-        .attr("width", width)
-        .attr("height", height)
-        .attr("x", 0)
-        .attr("y", 0)
-        .attr("fill","#E7E6E6")
-        .attr("opacity",0.3)
-
-
-    const data = [{"year":2012,"value":364},{"year":2014,"value":365},{"year":2016,"value":463},{"year":2018,"value":574},{"year":2020,"value":632}];
-    const data2=[{"year":2021,"value":3136},{"year":2022,"value":3196},{"year":2023,"value":3247},{"year":2024,"value":3321},{"year":2025,"value":3416},{"year":2026,"value":3624},{"year":2027,"value":3730},{"year":2028,"value":3851},{"year":2029,"value":3982},{"year":2030,"value":4134},{"year":2031,"value":4735},{"year":2032,"value":4967},{"year":2033,"value":5094},{"year":2034,"value":5210},{"year":2035,"value":5311},{"year":2036,"value":5411},{"year":2037,"value":5529},{"year":2038,"value":5631},{"year":2039,"value":5735},{"year":2040,"value":5842},{"year":2041,"value":5848},{"year":2042,"value":5852},{"year":2043,"value":5856},{"year":2044,"value":5861},{"year":2045,"value":5865},{"year":2046,"value":5869},{"year":2047,"value":5874},{"year":2048,"value":5878},{"year":2049,"value":5882},{"year":2050,"value":5887}];
-
-
-    let xScale = d3.scaleLinear()
-        .domain([2012,2020])
-        .range([0, width - margin.left-margin.right]);
-
-    let yScale = d3.scaleLinear()
-        .domain([0, 700])
-        .range([height-margin.bottom, 0]);
-
-    const formatYear = function(d) {
-        return d%2==0?((d-1).toString()+"/"+d.toString()):"";
-    }
-
-    const formatYear2 = function(d) {
-        return d;
-    }
-
-    let xAxis = d3.axisBottom(xScale).tickFormat(formatYear);
-    let yAxis = d3.axisLeft(yScale).ticks(5);
+        let width2 = figure2.node().getBoundingClientRect().width;
+        let height2 = figure2.node().getBoundingClientRect().height;
 
 
-    const g = svg.append("g").attr("transform",`translate(${margin.left},${margin.top})`);
-
-    g.append("g")
-        .attr("class", "y-axis")
-        .call(yAxis);
-
-    g.append("g")
-        .attr("class", "x-axis")
-        .attr("transform",`translate(0,${height-margin.bottom})`)
-        .call(xAxis);
-
-    // Add the area
-    g.append("path")
-      .datum(data)
-      .attr("class","area")
-      .attr("fill", "#266FA5")
-      .attr("fill-opacity", 1)
-      .attr("stroke", "none")
-      .attr("d", d3.area()
-        .x(function(d) { return xScale(d.year) })
-        .y0( height- margin.bottom)
-        .y1(function(d) { return yScale(d.value) })
-      );
-
-    g.selectAll("circle.circles")
-      .data(data)
-      .join("circle")
-      .attr("class","circles")
-        .attr("fill", "#0D4064")
-        .attr("stroke", "white")
-        .attr("stroke-width", 1)
-        .attr("cx", function(d) { return xScale(d.year) })
-        .attr("cy", function(d) { return yScale(d.value) })
-        .attr("r", 5)
-
-
-    g.selectAll("text.values")
-      .data(data)
-      .join("text")
-      .attr("class","values")
-        .attr("fill", "black")
-        .attr("x", function(d) { return xScale(d.year) })
-        .attr("y", function(d) { return yScale(d.value) })
-        .attr("dx",0)
-        .attr("dy",-8)
-        .attr("font-weight",400)
-        .attr("text-anchor",(d,i)=>(i==0)?"start":"middle")
-        .text(d=>d.value)
-
-    g.append("text")
-        .attr("class","unit")
-        .attr("x",-42)
-        .attr("y",-12)
-        .attr("font-weight",400)
-        .attr("font-size",12)
-        .text("$USD bn");
-
-
-    const svg2 = d3.select("#chart2").append("svg").attr("width", width2).attr("height", height2);
-    const sankey = svg2.append("svg:image")
-        .attr("class","sankey")
-        .attr('x', 0)
-        .attr('y', 0)
-        .attr('width', width2)
-        .attr('height', height2)
-        .attr("xlink:href", "./img/1-Sources.png");
-
-
-
-    // scrollama event handlers
-    function handleStepEnter(response) {
-
-        if (response.index == 0) {
-
-            if( response.direction=="up"){
-
-            yScale.domain([0, 700]);
-            svg.select(".y-axis")
-                .transition().duration(1000)
-                .call(d3.axisLeft(yScale).ticks(5));
-
-
-            svg.select(".area")
-                .transition().duration(1000)
-                .attr("d", d3.area()
-                    .x(function(d) { return xScale(d.year) })
-                    .y0( height- margin.bottom)
-                    .y1(function(d) { return yScale(d.value) })
-                )
-
-            svg.selectAll("circle.circles")
-                .transition().duration(1000)
-                .attr("cx", function(d) { return xScale(d.year) })
-                .attr("cy", function(d) { return yScale(d.value) })
-
-            svg.selectAll("text.values")
-                .transition().duration(1000)
-                .attr("font-size",16)
-                .attr("x", function(d) { return xScale(d.year) })
-                .attr("y", function(d) { return yScale(d.value) })
-
-            }
+        const margin = {
+            "top": 35,
+            "left": 55,
+            "bottom": 65,
+            "right": 30
         }
 
-        if (response.index == 1) {
 
-            if( response.direction=="down"){
+        //svg
+        const svg = d3.select("#chart1").append("svg").attr("width", width).attr("height", height);
+        const bg = svg.append('rect')
+            .attr("width", width)
+            .attr("height", height)
+            .attr("x", 0)
+            .attr("y", 0)
+            .attr("fill","#E7E6E6")
+            .attr("opacity",0.3)
 
-                yScale.domain([0, 6000]);
+
+        const data = [{"year":2012,"value":364},{"year":2014,"value":365},{"year":2016,"value":463},{"year":2018,"value":574},{"year":2020,"value":632}];
+        const data2=[{"year":2021,"value":3136},{"year":2022,"value":3196},{"year":2023,"value":3247},{"year":2024,"value":3321},{"year":2025,"value":3416},{"year":2026,"value":3624},{"year":2027,"value":3730},{"year":2028,"value":3851},{"year":2029,"value":3982},{"year":2030,"value":4134},{"year":2031,"value":4735},{"year":2032,"value":4967},{"year":2033,"value":5094},{"year":2034,"value":5210},{"year":2035,"value":5311},{"year":2036,"value":5411},{"year":2037,"value":5529},{"year":2038,"value":5631},{"year":2039,"value":5735},{"year":2040,"value":5842},{"year":2041,"value":5848},{"year":2042,"value":5852},{"year":2043,"value":5856},{"year":2044,"value":5861},{"year":2045,"value":5865},{"year":2046,"value":5869},{"year":2047,"value":5874},{"year":2048,"value":5878},{"year":2049,"value":5882},{"year":2050,"value":5887}];
+
+
+        let xScale = d3.scaleLinear()
+            .domain([2012,2020])
+            .range([0, width - margin.left-margin.right]);
+
+        let yScale = d3.scaleLinear()
+            .domain([0, 700])
+            .range([height-margin.bottom, 0]);
+
+        const formatYear = function(d) {
+            return d%2==0?((d-1).toString()+"/"+d.toString()):"";
+        }
+
+        const formatYear2 = function(d) {
+            return d;
+        }
+
+        let xAxis = d3.axisBottom(xScale).tickFormat(formatYear);
+        let yAxis = d3.axisLeft(yScale).ticks(5);
+
+
+        const g = svg.append("g").attr("transform",`translate(${margin.left},${margin.top})`);
+
+        g.append("g")
+            .attr("class", "y-axis")
+            .call(yAxis);
+
+        g.append("g")
+            .attr("class", "x-axis")
+            .attr("transform",`translate(0,${height-margin.bottom})`)
+            .call(xAxis);
+
+        // Add the area
+        g.append("path")
+        .datum(data)
+        .attr("class","area")
+        .attr("fill", "#266FA5")
+        .attr("fill-opacity", 1)
+        .attr("stroke", "none")
+        .attr("d", d3.area()
+            .x(function(d) { return xScale(d.year) })
+            .y0( height- margin.bottom)
+            .y1(function(d) { return yScale(d.value) })
+        );
+
+        g.selectAll("circle.circles")
+        .data(data)
+        .join("circle")
+        .attr("class","circles")
+            .attr("fill", "#0D4064")
+            .attr("stroke", "white")
+            .attr("stroke-width", 1)
+            .attr("cx", function(d) { return xScale(d.year) })
+            .attr("cy", function(d) { return yScale(d.value) })
+            .attr("r", 5)
+
+
+        g.selectAll("text.values")
+        .data(data)
+        .join("text")
+        .attr("class","values")
+            .attr("fill", "black")
+            .attr("x", function(d) { return xScale(d.year) })
+            .attr("y", function(d) { return yScale(d.value) })
+            .attr("dx",0)
+            .attr("dy",-8)
+            .attr("font-weight",400)
+            .attr("text-anchor",(d,i)=>(i==0)?"start":"middle")
+            .text(d=>d.value)
+
+        g.append("text")
+            .attr("class","unit")
+            .attr("x",-42)
+            .attr("y",-12)
+            .attr("font-weight",400)
+            .attr("font-size",12)
+            .text("$USD bn");
+
+
+        const svg2 = d3.select("#chart2").append("svg").attr("width", width2).attr("height", height2);
+        const sankey = svg2.append("svg:image")
+            .attr("class","sankey")
+            .attr('x', 0)
+            .attr('y', 0)
+            .attr('width', width2)
+            .attr('height', height2)
+            .attr("xlink:href", "./img/1-Sources.png");
+
+
+
+        // scrollama event handlers
+        function handleStepEnter(response) {
+
+            if (response.index == 0) {
+
+                if( response.direction=="up"){
+
+                yScale.domain([0, 700]);
                 svg.select(".y-axis")
                     .transition().duration(1000)
                     .call(d3.axisLeft(yScale).ticks(5));
@@ -191,57 +185,54 @@
                     .attr("cy", function(d) { return yScale(d.value) })
 
                 svg.selectAll("text.values")
-                    .attr("font-size",12)
-                    .transition().duration(1000)
-                    .attr("x", function(d) { return xScale(d.year) })
-                    .attr("y", function(d) { return yScale(d.value) })
-
-            }
-
-
-            if( response.direction=="up"){
-
-                xScale.domain([2012, 2020]);
-                svg.select(".x-axis")
-                    .transition().duration(1000)
-                    .call(d3.axisBottom(xScale).tickFormat(formatYear));
-
-                svg.select(".area")
-                .transition().duration(1000)
-                .attr("d", d3.area()
-                    .x(function(d) { return xScale(d.year) })
-                    .y0( height- margin.bottom)
-                    .y1(function(d) { return yScale(d.value) })
-                )
-
-                svg.selectAll("circle.circles")
-                    .transition().duration(1000)
-                    .attr("cx", function(d) { return xScale(d.year) })
-                    .attr("cy", function(d) { return yScale(d.value) })
-
-                svg.selectAll("text.values")
                     .transition().duration(1000)
                     .attr("font-size",16)
                     .attr("x", function(d) { return xScale(d.year) })
                     .attr("y", function(d) { return yScale(d.value) })
 
-
+                }
             }
 
-        }
+            if (response.index == 1) {
+
+                if( response.direction=="down"){
+
+                    yScale.domain([0, 6000]);
+                    svg.select(".y-axis")
+                        .transition().duration(1000)
+                        .call(d3.axisLeft(yScale).ticks(5));
 
 
-        if(response.index==2){
+                    svg.select(".area")
+                        .transition().duration(1000)
+                        .attr("d", d3.area()
+                            .x(function(d) { return xScale(d.year) })
+                            .y0( height- margin.bottom)
+                            .y1(function(d) { return yScale(d.value) })
+                        )
 
-            if( response.direction=="down"){
+                    svg.selectAll("circle.circles")
+                        .transition().duration(1000)
+                        .attr("cx", function(d) { return xScale(d.year) })
+                        .attr("cy", function(d) { return yScale(d.value) })
 
-                xScale.domain([2012, 2050]);
-                svg.select(".x-axis")
-                    .transition().duration(1000)
-                    .call(d3.axisBottom(xScale).tickFormat(formatYear2));
+                    svg.selectAll("text.values")
+                        .attr("font-size",12)
+                        .transition().duration(1000)
+                        .attr("x", function(d) { return xScale(d.year) })
+                        .attr("y", function(d) { return yScale(d.value) })
+
+                }
 
 
-                svg.select(".area")
+                if( response.direction=="up"){
+
+                    xScale.domain([2012, 2020]);
+                    svg.select(".x-axis")
+                        .transition().duration(1000)
+                        .call(d3.axisBottom(xScale).tickFormat(formatYear));
+
+                    svg.select(".area")
                     .transition().duration(1000)
                     .attr("d", d3.area()
                         .x(function(d) { return xScale(d.year) })
@@ -249,192 +240,256 @@
                         .y1(function(d) { return yScale(d.value) })
                     )
 
-                svg.selectAll("circle.circles")
-                    .transition().duration(1000)
-                    .attr("cx", function(d) { return xScale(d.year) })
-                    .attr("cy", function(d) { return yScale(d.value) })
+                    svg.selectAll("circle.circles")
+                        .transition().duration(1000)
+                        .attr("cx", function(d) { return xScale(d.year) })
+                        .attr("cy", function(d) { return yScale(d.value) })
 
-                svg.selectAll("text.values")
-                    .attr("font-size",12)
-                    .transition().duration(1000)
-                    .attr("x", function(d) { return xScale(d.year) })
-                    .attr("y", function(d) { return yScale(d.value) })
+                    svg.selectAll("text.values")
+                        .transition().duration(1000)
+                        .attr("font-size",16)
+                        .attr("x", function(d) { return xScale(d.year) })
+                        .attr("y", function(d) { return yScale(d.value) })
 
 
+                }
 
             }
 
-            if(response.direction=="up"){
-                svg.selectAll(".line2")
-                .attr("d", d3.line()
-                    .x(function(d) { return xScale(d.year) })
-                    .y(function(d) { return yScale(d.value) })
-                  ).transition().duration(1000)
-                .attr("d", d3.line()
-                   .x(xScale(2021))
-                   .y(yScale(632))
-                ).remove();
+
+            if(response.index==2){
+
+                if( response.direction=="down"){
+
+                    xScale.domain([2012, 2050]);
+                    svg.select(".x-axis")
+                        .transition().duration(1000)
+                        .call(d3.axisBottom(xScale).tickFormat(formatYear2));
+
+
+                    svg.select(".area")
+                        .transition().duration(1000)
+                        .attr("d", d3.area()
+                            .x(function(d) { return xScale(d.year) })
+                            .y0( height- margin.bottom)
+                            .y1(function(d) { return yScale(d.value) })
+                        )
+
+                    svg.selectAll("circle.circles")
+                        .transition().duration(1000)
+                        .attr("cx", function(d) { return xScale(d.year) })
+                        .attr("cy", function(d) { return yScale(d.value) })
+
+                    svg.selectAll("text.values")
+                        .attr("font-size",12)
+                        .transition().duration(1000)
+                        .attr("x", function(d) { return xScale(d.year) })
+                        .attr("y", function(d) { return yScale(d.value) })
 
 
 
-            svg.selectAll(".line")
-                .attr("y2",yScale(3136))
-                .transition().duration(1000)
-                .attr("y2",yScale(632))
-                .remove();
-            }
+                }
 
-        }
+                if(response.direction=="up"){
+                    svg.selectAll(".line2")
+                    .attr("d", d3.line()
+                        .x(function(d) { return xScale(d.year) })
+                        .y(function(d) { return yScale(d.value) })
+                    ).transition().duration(1000)
+                    .attr("d", d3.line()
+                    .x(xScale(2021))
+                    .y(yScale(632))
+                    ).remove();
 
-        if(response.index==3){
 
-            $(".article-wrapper.scroller-text").css("margin","auto")
 
-            if( response.direction=="down"){
-
-            g.append("line")
-                    .attr("class","line")
-                    .attr("x1", xScale(2020))
-                    .attr("x2",xScale(2021))
-                    .attr("y1",yScale(632))
-                    .attr("y2",yScale(632))
-                    .transition().duration(1000)
+                svg.selectAll(".line")
                     .attr("y2",yScale(3136))
-                    .attr("stroke","#266FA5")
-                    .attr("stroke-width",3)
-                    .attr("stroke-dasharray",5)
+                    .transition().duration(1000)
+                    .attr("y2",yScale(632))
+                    .remove();
+                }
 
-                g.append("path")
-                    .datum(data2)
-                    .attr("class","line2")
-                    .attr("fill", "none")
-                    .attr("stroke", "#266FA5")
-                    .attr("stroke-width", 3)
-                    .attr("d", d3.line()
-                      .x(xScale(2021))
-                      .y(height- margin.bottom)
-                      ).transition().duration(1000)
-                    .attr("d", d3.line()
-                      .x(function(d) { return xScale(d.year) })
-                      .y(function(d) { return yScale(d.value) })
-                      )
+            }
 
+            if(response.index==3){
+
+                $(".article-wrapper.scroller-text").css("margin","auto")
+
+                if( response.direction=="down"){
+
+                g.append("line")
+                        .attr("class","line")
+                        .attr("x1", xScale(2020))
+                        .attr("x2",xScale(2021))
+                        .attr("y1",yScale(632))
+                        .attr("y2",yScale(632))
+                        .transition().duration(1000)
+                        .attr("y2",yScale(3136))
+                        .attr("stroke","#266FA5")
+                        .attr("stroke-width",3)
+                        .attr("stroke-dasharray",5)
+
+                    g.append("path")
+                        .datum(data2)
+                        .attr("class","line2")
+                        .attr("fill", "none")
+                        .attr("stroke", "#266FA5")
+                        .attr("stroke-width", 3)
+                        .attr("d", d3.line()
+                        .x(xScale(2021))
+                        .y(height- margin.bottom)
+                        ).transition().duration(1000)
+                        .attr("d", d3.line()
+                        .x(function(d) { return xScale(d.year) })
+                        .y(function(d) { return yScale(d.value) })
+                        )
+
+                }
+
+            }
+
+            if(response.index == 4){
+                $(".article-wrapper.scroller-text").css("margin","auto")
+                $(".article-wrapper.scroller-text").css("margin-left","50%")
+            }
+
+            if(response.index==5){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/1-Sources.png");
+            }
+
+            if(response.index==6){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/1a-Public-01.png");
+            }
+
+            if(response.index==7){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/1b-Private-01.png");
+            }
+
+            if(response.index==8){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/2-Instruments-01.png");
+            }
+
+            if(response.index==8){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/2a-Grants-01.png");
+            }
+
+            if(response.index==9){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/2b-Debt-01.png");
+            }
+
+            if(response.index==10){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/2c-Equity-01.png");
+                $(".article-wrapper.scroller-text").css("margin","auto");
+                $(".article-wrapper.scroller-text").css("margin-left","50%");
+            }
+
+            if(response.index==11){
+
+
+                $(".article-wrapper.scroller-text").css("margin","auto");
+                $(".article-wrapper.scroller-text").css("margin-right","50%");
+
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/3-Uses-01.png");
+            }
+
+            if(response.index==12){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/3a-Uses-Adaptation-01.png");
+            }
+
+            if(response.index==13){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/3b-Uses-Multiple-Objectives-01.png");
+            }
+
+            if(response.index==14){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/3c-Uses-Mitigation-01.png");
+            }
+
+            if(response.index==15){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/4-Sectors-01.png");
+            }
+
+            if(response.index==16){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/4a-Water-Waste-01.png");
+            }
+
+            if(response.index==17){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/4b-Infra-Industry-01.png");
+            }
+
+            if(response.index==18){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/4c-Others-01.png");
+            }
+
+            if(response.index==19){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/4d-Land-Use-01.png");
+            }
+
+            if(response.index==20){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/4e-Transport-01.png");
+            }
+
+            if(response.index==21){
+                svg2.select(".sankey")
+                .attr("xlink:href", "./img/4f-Energy-Systems-01.png");
             }
 
         }
 
-        if(response.index == 4){
-            $(".article-wrapper.scroller-text").css("margin","auto")
-            $(".article-wrapper.scroller-text").css("margin-left","50%")
-        }
 
-        if(response.index==5){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/1a-Public-01.png");
-        }
+            scroller
+                .setup({
+                    step: ".scene",
+                    offset: 1,
+                    offsetTrigger:1,
+                    debug: false,
+                    progress: false
+                })
+                .onStepEnter(handleStepEnter);
 
-        if(response.index==6){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/1b-Private-01.png");
-        }
-
-        if(response.index==7){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/2-Instruments-01.png");
-        }
-
-        if(response.index==8){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/2a-Grants-01.png");
-        }
-
-        if(response.index==9){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/2b-Debt-01.png");
-        }
-
-        if(response.index==10){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/2c-Equity-01.png");
-            $(".article-wrapper.scroller-text").css("margin","auto");
-            $(".article-wrapper.scroller-text").css("margin-left","50%");
-        }
-
-        if(response.index==11){
-
-
-            $(".article-wrapper.scroller-text").css("margin","auto");
-            $(".article-wrapper.scroller-text").css("margin-right","50%");
-
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/3-Uses-01.png");
-        }
-
-        if(response.index==12){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/3a-Uses-Adaptation-01.png");
-        }
-
-        if(response.index==13){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/3b-Uses-Multiple-Objectives-01.png");
-        }
-
-        if(response.index==14){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/3c-Uses-Mitigation-01.png");
-        }
-
-        if(response.index==15){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/4-Sectors-01.png");
-        }
-
-        if(response.index==16){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/4a-Water-Waste-01.png");
-        }
-
-        if(response.index==17){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/4b-Infra-Industry-01.png");
-        }
-
-        if(response.index==18){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/4c-Others-01.png");
-        }
-
-        if(response.index==19){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/4d-Land-Use-01.png");
-        }
-
-        if(response.index==20){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/4e-Transport-01.png");
-        }
-
-        if(response.index==21){
-            svg2.select(".sankey")
-            .attr("xlink:href", "./img/4f-Energy-Systems-01.png");
-        }
 
     }
 
 
-    function init() {
+    function preload(imgArray) {
+        var loadedCount = 0
+        $(imgArray).each(function(){
+          var img = new Image();
+          img.src = this;
+          img.onload = function() {
+            loadedCount++;
+            if (loadedCount==imgArray.length) {
+              loadComplete();
+            }
+          }
+        });
+      }
 
-        scroller
-            .setup({
-                step: ".scene",
-                offset: 1,
-                offsetTrigger:1,
-                debug: false,
-                progress: false
-            })
-            .onStepEnter(handleStepEnter);
+      function loadComplete() {
+        $('#loading').hide();
+        $('#loadWrapper').hide();
+        $('body').css('overflow','auto')
+        $('#root').css('opacity', 1);
+      }
 
-    }
 
-    init();
+
+    window.onresize = function(){ location.reload(); }
+
