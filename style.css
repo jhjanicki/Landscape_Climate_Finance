@@ -73,7 +73,7 @@ section.section-1 h3 {
 	font-family: 'Georgia';
 	padding: 0;
 	font-size: 20px;
-	line-height: 28px;
+	line-height: 32px;
 	color: #333
 }
 
@@ -140,9 +140,9 @@ body {
 .article-wrapper.scroller-text {
 	max-width: 450px;
 	padding: 5px 20px;
-	background-color: hsla(0, 0%, 100%, .65);
+	background-color: hsla(0, 0%, 100%, .85);
 	box-shadow: 1px 1px 5px -3px rgba(0, 0, 0, .5);
-	text-align: justify;
+	text-align: left;
 	transition: all 1s ease;
 }
 
@@ -188,7 +188,7 @@ body {
 	}
 	.article-wrapper p {
 		font-size: 18px;
-		line-height: 22px;
+		line-height: 26px;
 	}
 }
 
@@ -207,11 +207,9 @@ body {
 	.subtitle {
 		max-width: 60%;
 	}
-    .article-wrapper {
-		padding: 0 20px
-	}
-    .article-wrapper.scroller-text {
-		max-width: 90vw
+    .article-wrapper.scroller-text{
+		padding: 10px 20px;
+		max-width: 400px;
 	}
     .scene {
 		min-height: 200vh
@@ -223,7 +221,7 @@ body {
 
 	.article-wrapper p {
 		font-size: 16px;
-		line-height: 20px;
+		line-height: 24px;
 	}
 
 }
@@ -234,7 +232,7 @@ body {
 	position: fixed;
 	display: block;
 	opacity: .3;
-	background-color:gray;
+	background-color:white;
 	z-index: 99;
   }
 
