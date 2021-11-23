@@ -311,7 +311,7 @@ $( document ).ready(function() {
                     ).remove();
 
                     svg.selectAll(".line")
-                        .attr("y2",yScale(3136))
+                        .attr("y2",yScale(3351))
                         .transition().duration(1000)
                         .attr("y2",yScale(632))
                         .remove();
@@ -332,7 +332,7 @@ $( document ).ready(function() {
                         .attr("y1",yScale(632))
                         .attr("y2",yScale(632))
                         .transition().duration(1000)
-                        .attr("y2",yScale(3136))
+                        .attr("y2",yScale(3351))
                         .attr("stroke","#266FA5")
                         .attr("stroke-width",3)
                         .attr("stroke-dasharray",5)

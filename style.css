@@ -74,7 +74,7 @@ section.section-1 h3 {
 	padding: 0;
 	font-size: 20px;
 	line-height: 32px;
-	color: #333
+	/* color: #333; */
 }
 
 .article-wrapper {
@@ -170,6 +170,35 @@ body {
 .y-axis {
 	font-family: 'Whitney';
 }
+
+.blue{
+	color:'#266fa5' !important;
+}
+
+.orange{
+	color:'#f0562c' !important;
+}
+
+.purple{
+	color:'#75436a' !important;
+}
+
+.red{
+	color:'#b53c36' !important;
+}
+
+.gray{
+	color:'#6d6e70' !important;
+}
+
+.green{
+	color:'#39673b' !important;
+}
+
+.yellow{
+	color:'#e9c67f' !important;
+}
+
 
 @media only screen and (min-width:661px) and (max-width:920px) {
 	section.section-1 h1 {
