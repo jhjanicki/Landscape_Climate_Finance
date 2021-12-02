@@ -34,16 +34,25 @@ $( document ).ready(function() {
         const figure2 = d3.selectAll(".chart2");
         const article = d3.selectAll(".scroll-graphic");
         const step = d3.selectAll(".scene");
+        const figureWrapper = d3.select(".chart-wrapper");
+        const figureWrapper2 = d3.select(".chart-wrapper2");
 
         // initialize the scrollama
         const scroller = scrollama();
 
-        // console.log(figure.node().getBoundingClientRect())
+        const windowWidth = $(window).width();
+        const windowHeight = $(window).height();
+
         let width = figure.node().getBoundingClientRect().width;
         let height = figure.node().getBoundingClientRect().height;
 
         let width2 = figure2.node().getBoundingClientRect().width;
         let height2 = figure2.node().getBoundingClientRect().height;
+
+
+
+        figureWrapper.style("padding-top",(windowHeight-height)>0?(windowHeight-height)/2+"px":"0px");
+        figureWrapper2.style("padding-top",(windowHeight-height)>0?(windowHeight-height2)/2+"px":"0px");
 
         let viewportWidth = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
         let viewportHeight = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
