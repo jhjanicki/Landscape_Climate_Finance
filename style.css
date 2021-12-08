@@ -27,6 +27,26 @@ body {
 	overflow:hidden;
 }
 
+.scroll-arrow {
+    margin: 3rem auto 5rem;
+    text-align: center;
+    animation: scroll 5s ease-in-out infinite;
+}
+
+.arrow-text{
+	display: inline-block;
+    animation: blink 5s ease-in-out infinite;
+}
+
+@keyframes scroll {
+	0%, 100% {
+		transform: translateY(1rem);
+	}
+	50% {
+		transform: translateY(-1rem);
+	}
+  }
+
 
 section.section-1 h1 {
 	color: #002F49;
