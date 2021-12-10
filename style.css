@@ -24,11 +24,10 @@
 body {
 	font-family: 'Whitney';
 	-webkit-font-smoothing: antialiased;
-	overflow:hidden;
 }
 
 .scroll-arrow {
-    margin: 3rem auto 5rem;
+    margin: 150px auto 0px;
     text-align: center;
     animation: scroll 5s ease-in-out infinite;
 }
@@ -46,7 +45,6 @@ body {
 		transform: translateY(-1rem);
 	}
   }
-
 
 section.section-1 h1 {
 	color: #002F49;
@@ -94,7 +92,6 @@ section.section-1 h3 {
 	padding: 0;
 	font-size: 20px;
 	line-height: 32px;
-	/* color: #333; */
 }
 
 .article-wrapper {
@@ -102,8 +99,7 @@ section.section-1 h3 {
 	margin: auto
 }
 
-.content-wrapper,
-body {
+.content-wrapper, body {
 	position: relative;
 	min-height: 100%
 }
@@ -118,18 +114,8 @@ body {
 	position: sticky;
 	height: 100vh;
 	top: 0;
-	/* padding-top: 150px; */
 }
 
-
-/*
-  .scroll-graphic .chart-wrapper .chart {
-  	height: 85vh
-  } */
-
-.scroll-scenes {
-	pointer-events: none
-}
 
 .scene {
 	transform: translateZ(0);
@@ -139,7 +125,7 @@ body {
 
 .chart-wrapper {
 	max-width: 920px;
-	margin: 50px auto;
+	margin: 10px auto;
 }
 
 .chart-wrapper .chart {
@@ -165,7 +151,6 @@ body {
 	text-align: left;
 	transition: all 1s ease;
 }
-
 
 .img-responsive {
 	width: 100%;
@@ -217,6 +202,10 @@ body {
 
 .yellow{
 	color:'#e9c67f' !important;
+}
+
+a:hover{
+	transition: all 1s ease;
 }
 
 
@@ -308,5 +297,4 @@ body {
 	text-align: center;
 	height: 100%;
   }
-
 

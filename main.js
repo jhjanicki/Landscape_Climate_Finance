@@ -28,6 +28,12 @@ $( document ).ready(function() {
           './img/4f-Energy-Systems-01.png'
         ]);
 
+        $("#link").on('mouseover', function(){  //using "on" for optimization
+            this.style.color = '#b53c36';       //native JS application
+        }).on('mouseout', function(){           //chain to avoid second selector call
+            this.style.color = '#266fa5';     //native JS application
+        })
+
         const main = d3.select("body");
         const scrolly = d3.selectAll(".scroller");
         const figure = d3.selectAll(".chart");
