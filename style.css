@@ -27,7 +27,7 @@ body {
 }
 
 .scroll-arrow {
-    margin: 150px auto 0px;
+    margin: 150px auto -50px;
     text-align: center;
     animation: scroll 5s ease-in-out infinite;
 }
